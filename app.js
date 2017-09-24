@@ -1,25 +1,12 @@
 import path from 'path';
 import Importer from './lib/Importer';
 
-const importer = new Importer();
-importer.importFsSync(path.join(__dirname, './data'));
+const importer = new Importer(path.join(__dirname, './data'));
 
-const shit = () => {
-    return new Promise((res, rej) => {
-        setTimeout(() => {
-            console.log('i come');
-        }, 10000);
+setTimeout(() => {
+    importer.import('MOCK_DATA.csv').then(data => {
+        console.log('prom', data.length);
     });
-};
 
-shit();
-console.log('after shit 1');
-
-(async() => {
-    console.log('ohh shit 2 <-');
-    const wait = await shit();
-    console.log('ohh shit 2', wait);
-})();
-console.log('after shit 2');
-
-
+    console.log(importer.importSync('MOCK_DATA (1).csv').length);
+}, 5000);
