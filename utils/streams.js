@@ -67,7 +67,7 @@ const bundleCss = (dirPath) => {
 
         const outStream = fs.createWriteStream(path.join(dir, 'bundle.css'));
         files.forEach(file => {
-            if (file !== 'bundle.css') {
+            if (file !== 'bundle.css' && checkExt(file, 'css')) {
                 fs.createReadStream(path.join(dir, file)).pipe(outStream, { end: false });
             }
         });
