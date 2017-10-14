@@ -14,13 +14,13 @@ const realPath = (filePath) => path.isAbsolute(filePath) ? filePath : path.join(
 
 const checkExt = (filePath, ext) => (filePath.split('.') || []).pop() === ext;
 
-const inputOutput = (filePath) => {
+const io = (filePath) => {
     const readStream = fs.createReadStream(realPath(filePath));
     readStream.pipe(process.stdout);
     readStream.on('error', dirError);
 };
 
-const stdInToUpper = () => {
+const upper = () => {
     process.stdout.write('Type CTRL+C to exit\n');
     process.stdin.pipe(through2((chunk, enc, cb) => {
         cb(null, '>> '.green + chunk.toString().toUpperCase());
@@ -86,9 +86,9 @@ const printHelpMessage = () => {
         '\n  -a, --action   Must me one of this: ' +
         '\n                   io             writes content of --file to stdout' +
         '\n                   upper          writes stdin into stdout in upper case' +
-        '\n                   csv-json       writes contend of csv --file into stdout as json object' +
-        '\n                   csv-json-save  writes contend of csv --file into the same directory with json extension' +
-        '\n                   bundle-css     concat all .css files in directory --path' +
+        '\n                   csvJson        writes contend of csv --file into stdout as json object' +
+        '\n                   csvJsonCave    writes contend of csv --file into the same directory with json extension' +
+        '\n                   bundleCss      concat all .css files in directory --path' +
         '\n  -f, --file     Path for file. Can be relative or absolute' +
         '\n  -p, --path     Path for directory. Can be relative or absolute. NOTE: for Windows path must be in C:\\dir or C:/dir format' +
         '\n  -h, --help\n'
@@ -104,40 +104,29 @@ const applyAgruments = () => {
     }
 
     const action = argv.action || argv.a;
-    const file = argv.file || argv.f;
-    const path = argv.path || argv.p;
+    const param = (argv.file || argv.f) || (argv.path || argv.p);
 
     if (argv.help || argv.h) {
         return printHelpMessage();
     }
 
-    if (action && file) {
-        switch (action) {
-            case 'io': return inputOutput(file);
-            case 'csv-json': return csvToJson(file);
-            case 'csv-json-save': return csvToJsonSave(file);
-        }
-    }
-
-    if (action === 'bundle-css' && path) {
-        return bundleCss(path);
-    }
-    
-    if (action === 'upper') {
-        return stdInToUpper();
+    if (action && _exports[action]) {
+        return _exports[action](param);
     }
 
     process.stdout.write(wrongArgumentsMsg);
 };
 
+const _exports = {
+    io,
+    upper,
+    csvToJson,
+    csvToJsonSave,
+    bundleCss
+};
+
 if (require.main === module) {
     applyAgruments();
 } else {
-    module.exports = {
-        inputOutput,
-        stdInToUpper,
-        csvToJson,
-        csvToJsonSave,
-        bundleCss
-    };
+    module.exports = _exports;
 }
