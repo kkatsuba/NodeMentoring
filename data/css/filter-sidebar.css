@@ -1,0 +1,191 @@
+.filter-sidebar {
+    background-color: rgba(234, 234, 234, .6);
+}
+
+.btn.list-btn.btn-primary,
+.btn.list-btn.btn-primary:hover {
+    padding: 10px 15px;
+}
+
+.btn.list-btn:hover {
+    background: #3383bf;
+    background: -webkit-linear-gradient(top, #3383bf 0%, #307bb4 100%) !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3383bf), color-stop(100%, #307bb4)) !important;
+    background: -moz-linear-gradient(top, #3383bf 0%, #307bb4 100%) !important;
+    background: -ms-linear-gradient(top, #3383bf 0%, #307bb4 100%) !important;
+    background: -o-linear-gradient(top, #3383bf 0%, #307bb4 100%) !important;
+    background: linear-gradient(to bottom, #3383bf 0%, #307bb4 100%) !important;
+}
+
+.btn.list-btn.active {
+    background: #f85505;
+    background: -webkit-linear-gradient(top, #f85505 0%, #f85505 100%) !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f85505), color-stop(100%, #f85505)) !important;
+    background: -moz-linear-gradient(top, #f85505 0%, #f85505 100%) !important;
+    background: -ms-linear-gradient(top, #f85505 0%, #f85505 100%) !important;
+    background: -o-linear-gradient(top, #f85505 0%, #f85505 100%) !important;
+    background: linear-gradient(to bottom, #f85505 0%, #f85505 100%) !important;
+}
+
+.list-control {
+    position: relative;
+}
+
+.list-control .hidden-my {
+    position: absolute;
+    background-color: #f7f7f7;
+    border: 1px solid #999;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    -moz-box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+}
+
+.control ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.control h3 {
+    text-transform: capitalize;
+}
+
+.noUi-handle-lower, .noUi-handle-upper {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 100%;
+    box-shadow: none;
+    background-color: #3383bf;
+    top: -8px !important;
+    border: none;
+}
+
+.noUi-handle-lower::before, .noUi-handle-upper::before {
+    top: 7px;
+    left: 14px;
+}
+
+.noUi-handle-lower::after, .noUi-handle-upper::after {
+    top: 7px;
+    left: 16px;
+}
+
+.range-control .form-control {
+    display: inline-block;
+    width: 49%;
+    height: 30px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.noUi-base .noUi-origin:first-child {
+    background-color: #f85505;
+}
+
+.noUi-base .noUi-origin:last-child {
+    background-color: #ffffff;
+}
+
+.list-control label {
+    margin: 0;
+    font-weight: normal;
+}
+
+.list-control .hidden-my {
+    width: 410px;
+    column-count: 2;
+    padding: 15px;
+}
+
+.list-control .hidden-my.hidden-col-1 {
+    width: 205px;
+    column-count: 1;
+}
+
+.listItem {
+    display: table;
+}
+
+.listItem div {
+    display: table-cell;
+    padding-top: 5px;
+    vertical-align: top;
+}
+
+.listItem .alphabit-char {
+    min-width: 20px;
+    font-size: 13px;
+}
+
+.listItem div:last-child {
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+.hidden-my.visible:before {
+    border-color: transparent #999 transparent transparent;
+    border-style: solid;
+    border-width: 11px;
+    bottom: 100%;
+    content: '';
+    left: -22px;
+    position: absolute;
+    top: 5px;
+}
+
+.hidden-my.visible:after {
+	border-color: transparent #f7f7f7 transparent transparent;
+    border-style: solid;
+    border-width: 10px;
+    bottom: 100%;
+    content: '';
+    left: -20px;
+    position: absolute;
+    top: 6px;
+}
+
+.sidebar-add-link {
+    text-align: center;
+    display: block;
+    margin: 20px 0 10px;
+    font-size: 17px;
+}
+
+.sidebar-add-link:hover {
+    cursor: pointer;
+}
+
+.checkbox-control label {
+    margin-bottom: 0;
+}
+
+.checkbox-control .listItem div {
+    padding-top: 0;
+}
+
+.checkbox-control ul {
+    margin-top: 10px;
+}
+
+.clear-filters {
+    width: calc(100% + 30px);
+    margin-left: -15px;
+    text-align: center;
+    height: 60px;
+    display: table;
+    background: #f85505;
+    font-size: 25px;
+    color: #fff;
+}
+
+.clear-filters div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.clear-filters div:hover {
+    cursor: pointer;
+}
