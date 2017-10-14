@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js --exec babel-node",
+    "start": "babel-node app.js",
+    "watch": "nodemon app.js --exec babel-node",
     "lint": "eslint . --ext .js,.json --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,5 +25,10 @@
   },
   "engines": {
     "node": ">=7.0.0"
+  },
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "request": "^2.83.0",
+    "through2": "^2.0.3"
   }
 }
