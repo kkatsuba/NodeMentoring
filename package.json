@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js --exec babel-node",
+    "start": "nodemon ./http-servers/plain-text-server.js --exec babel-node",
     "lint": "eslint . --ext .js,.json --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
