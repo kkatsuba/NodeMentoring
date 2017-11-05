@@ -1,0 +1,7 @@
+{
+    "host": "http://localhost",
+    "secretKey": "vary-sesurity-kluch",
+    "redis": {
+        "host": "localhost"
+    }
+}

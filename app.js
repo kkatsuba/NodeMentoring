@@ -1,56 +1,40 @@
 import express from 'express';
-import cookieParser from './middlewares/cookieParser';
-import queryParser from './middlewares/queryParser';
+import cookieParser from 'cookie-parser';
+import apiRoute from './routes/api';
+import auth from './routes/auth';
+import authMiddleware from './middlewares/auth';
+import passport from 'passport';
+import session from 'express-session';
+require('./middlewares/localPassport')(passport); // local
+require('./middlewares/facebookPassport')(passport);
+require('./middlewares/twitterPassport')(passport);
+require('./middlewares/googlePasswort')(passport);
 
 const app = express();
-const apiRoute = new express.Router();
-app.use(cookieParser);
-app.use(queryParser);
-app.use('/api', apiRoute);
+app.use(express.json());
+app.use(cookieParser());
+app.use(session({
+    secret: 'just_sesurity',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get('/', function (req, res) {
+app.use('/api', authMiddleware, apiRoute);
+app.use('/auth', auth);
+
+app.get('/', (req, res) => {
     res.json({
         cookies: req.parsedCookie,
         query: req.parsedQuery
     });
 });
 
-apiRoute.get('/products', (req, res) => {
-    res.json([{
-        id: 1,
-        name: '12',
-    }, {
-        id: 2,
-        name: '1231'
-    }]);
-});
-
-apiRoute.get('/products/:id', (req, res) => {
-    res.json({
-        id: req.params.id,
-        name: '1231'
+app.get('/error', (req, res) => {
+    res.status(503).json({
+        message: 'Service error'
     });
-});
-
-apiRoute.get('/products/:id/reviews', (req, res) => {
-    res.json([]);
-});
-
-apiRoute.post('/products', (req, res) => {
-    res.json({
-        status: 'success',
-        id: Math.random() * 10000
-    });
-});
-
-apiRoute.get('/users', (req, res) => {
-    res.json([{
-        id: 1,
-        name: '12',
-    }, {
-        id: 2,
-        name: '1231'
-    }]);
 });
 
 export default app;
