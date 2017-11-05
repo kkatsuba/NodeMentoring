@@ -1,8 +1,8 @@
 {
+  "parser": "babel-eslint",
   "plugins": [
     "json",
-    "one-variable-per-var",
-    "node"
+    "one-variable-per-var"
   ],
   "extends": ["eslint:recommended"],
   "env": {
@@ -10,22 +10,18 @@
     "node": true
   },
   "parserOptions": {
+    "sourceType": "module",
     "ecmaVersion": 6,
     "ecmaFeatures": {
       "js": true,
       "experimentalObjectRestSpread": true
     }
   },
-  "ecmaFeatures": {
-    "js": true,
-    "experimentalObjectRestSpread": true
-  },
   "globals": {
     "pit": true,
     "xpit": true
   },
   "rules": {
-    "node/exports-style": ["error", "module.exports"],
     "no-alert": 1,
     "jsx-quotes": [
       1,

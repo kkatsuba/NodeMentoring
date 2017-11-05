@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon ./http-servers/plain-text-server.js --exec babel-node",
+    "start": "cross-env PORT=8081 nodemon ./index.js --exec babel-node",
     "lint": "eslint . --ext .js,.json --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,17 +12,23 @@
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
+    "cross-env": "^5.1.1",
     "eslint": "^3.1.1",
     "eslint-plugin-json": "^1.2.0",
-    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-one-variable-per-var": "0.0.3",
     "nodemon": "^1.12.1"
   },
   "engines": {
     "node": ">=7.0.0"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "through2": "^2.0.3"
   }
 }
