@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "cross-env PORT=8081 nodemon ./index.js --exec babel-node",
+    "start": "nodemon -L ./index.js --exec babel-node",
     "lint": "eslint . --ext .js,.json --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,13 +22,18 @@
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-one-variable-per-var": "0.0.3",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "sequelize-cli": "^3.0.0"
   },
   "engines": {
     "node": ">=7.0.0"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "pg": "^7.4.0",
+    "sequelize": "^4.22.5",
     "through2": "^2.0.3"
   }
 }
