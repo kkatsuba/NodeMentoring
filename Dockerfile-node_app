@@ -6,7 +6,7 @@ COPY . .
 RUN mkdir /www/tmp
 COPY package.json /www/tmp/
 WORKDIR /www/tmp
-RUN npm i -g yarn && yarn global add nodemon babel-cli babel-core  && yarn install
+RUN npm i -g yarn && yarn global add nodemon babel-cli babel-core sequelize-cli && yarn install
 
 WORKDIR /www/target
 RUN mkdir -p node_modules
