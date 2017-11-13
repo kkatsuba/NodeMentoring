@@ -6,6 +6,11 @@
   "scripts": {
     "start": "nodemon -L ./index.js --exec babel-node",
     "lint": "eslint . --ext .js,.json --fix",
+    "db": "npm run db:create && npm run db:tables && npm run db:data",
+    "db:create": "sequelize db:create || echo 'DB created'",
+    "db:tables": "sequelize db:migrate:undo:all && sequelize db:migrate || echo 'Tables created'",
+    "db:data": "sequelize db:seed:undo:all && sequelize db:seed:all || echo 'Data inserted wuth errors'",
+    "db:drop": "sequelize db:drop",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kiryl Katsuba <Kiryl_Katsuba@epam.com>",
@@ -22,9 +27,8 @@
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-one-variable-per-var": "0.0.3",
-    "nodemon": "^1.12.1",
-    "sequelize-cli": "^3.0.0"
-  },
+    "nodemon": "^1.12.1"
+},
   "engines": {
     "node": ">=7.0.0"
   },
@@ -32,6 +36,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "morgan": "^1.9.0",
+    "papaparse": "^4.3.6",
     "pg": "^7.4.0",
     "sequelize": "^4.22.5",
     "through2": "^2.0.3"

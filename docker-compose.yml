@@ -3,7 +3,6 @@ services:
   mentoring-node-app:
     build:
       context: .
-      dockerfile: Dockerfile-node_app
     ports:
       - "8081:8081"
     volumes:
@@ -13,12 +12,8 @@ services:
       - "postgres"
   postgres:
     image: postgres:9.6-alpine
-    build:
-      context: .
-      dockerfile: Dockerfile-postgres
     ports:
       - "4432:5432"
     environment:
-      POSTGRES_DB: 'mentoring'
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: 'password'
