@@ -9,8 +9,4 @@ app.use(cookieParser());
 app.use(express.json());
 app.use('/api', apiRoute);
 
-app.get('/', (req, res) => {
-    res.json('fuckoff ppls');
-});
-
 export default app;
