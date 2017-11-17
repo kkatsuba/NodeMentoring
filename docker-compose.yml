@@ -9,11 +9,13 @@ services:
       - .:/www/target/
       - /www/target/node_modules
     depends_on:
-      - "postgres"
-  postgres:
-    image: postgres:9.6-alpine
+      - "mongo"
+  mongo:
+#    image: ellerbrock/alpine-mongodb
+    build:
+      context: .
+      dockerfile: Dockerfile-mongo
+      args:
+        SERVICE_LOGLEVEL: ""
     ports:
-      - "4432:5432"
-    environment:
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'password'
+      - "26017:27017"

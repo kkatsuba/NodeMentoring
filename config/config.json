@@ -1,9 +1,5 @@
 {
-  "development": {
-    "username": "postgres",
-    "password": "password",
-    "database": "mentoring",
-    "host": "postgres",
-    "dialect": "postgres"
+  "database": {
+    "connection": "mongodb://mongo/mentoring"
   }
 }
