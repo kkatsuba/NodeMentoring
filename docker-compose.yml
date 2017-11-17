@@ -11,11 +11,8 @@ services:
     depends_on:
       - "mongo"
   mongo:
-#    image: ellerbrock/alpine-mongodb
     build:
       context: .
       dockerfile: Dockerfile-mongo
-      args:
-        SERVICE_LOGLEVEL: ""
     ports:
       - "26017:27017"
