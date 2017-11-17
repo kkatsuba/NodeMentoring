@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Counters = require('./counters');
+const sha256 = require('crypto-js/sha256');
+const { getIndex, preSaveIndex } = require('./counters');
 
 const usersSchema = new mongoose.Schema({
   id: {
@@ -34,18 +35,13 @@ const usersSchema = new mongoose.Schema({
   versionKey: false
 });
 
-usersSchema.methods.getIndex = () => Counters.findOneAndUpdate({ _id: 'users_id' }, { $inc: { sequence_value: 1 } });
-
-// mongoose just piece of shit. Does't support arrows in hooks.
-usersSchema.pre('save', async function(next) {
+usersSchema.methods.getIndex = getIndex('users_id');
+usersSchema.pre('save', preSaveIndex);
+usersSchema.pre('save', function (next) {
   const user = this;
-  const { sequence_value } = await user.getIndex();
 
-  user.id = sequence_value;
-  next();
+  user.password = sha256(`urGenT!!${user.pawword}SesuriTYYY!wArNiNG`).toString();
+  next()
 });
 
-
-const Users = mongoose.model('Users', usersSchema);
-
-module.exports = Users;
+module.exports = mongoose.model('Users', usersSchema);

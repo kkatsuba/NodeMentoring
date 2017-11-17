@@ -9,9 +9,9 @@ const {
 
 const performMockInsert = () => Promise.all([
   insertManyCitiesWithRemove(require('./mocks/cities.json')),
-  insertManyUsersWithRemove(require('./mocks/users')),
+  insertManyUsersWithRemove(require('./mocks/users.json')),
   insertManyProductsWithRemove(require('./mocks/products.json')),
-  insertManyCountersWithRemove(require('./mocks/counters.json'))
+  insertManyCountersWithRemove(require('./mocks/counters'))
 ]);
 
 connect()
@@ -23,5 +23,5 @@ connect()
   })
   .catch(err => {
     mongoose.connection.close();
-    console.log('!!?', err);
+    console.log(err);
   });

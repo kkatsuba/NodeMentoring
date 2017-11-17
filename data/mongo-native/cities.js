@@ -12,10 +12,10 @@ const getRandomCityNative = async () => {
   ).next();
 
   db.close();
-  return randomCity;
+  return [ randomCity ];
 };
 
-const getRandomCity = async () => Cities.aggregate([
+const getRandomCityMongoose = async () => Cities.aggregate([
   { $sample: { size: 1 } }
 ]);
 
@@ -35,6 +35,6 @@ const insertManyCitiesWithRemove = async (cities) => {
 
 module.exports = {
   getRandomCityNative,
-  getRandomCity,
+  getRandomCityMongoose,
   insertManyCitiesWithRemove
 };

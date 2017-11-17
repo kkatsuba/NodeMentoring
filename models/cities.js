@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { getIndex, preSaveIndex } = require('./counters');
 
-const citiesSchema = new Schema({
+const citiesSchema = new mongoose.Schema({
+  id: {
+    type: Number,
+    unique: true
+  },
   name: {
     type: String,
     required: true
@@ -24,6 +28,11 @@ const citiesSchema = new Schema({
       default: 0
     }
   }
+}, {
+  versionKey: false
 });
+
+citiesSchema.methods.getIndex = getIndex('cities_id');
+citiesSchema.pre('save', preSaveIndex);
 
 module.exports = mongoose.model('Cities', citiesSchema);

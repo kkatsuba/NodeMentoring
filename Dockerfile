@@ -17,4 +17,4 @@ RUN cp -R /www/tmp/node_modules/* /www/target/node_modules
 
 ENV NODE_PORT=8081
 EXPOSE 8081
-CMD /www/tmp/wait-for/wait-for mongo:27017 -- npm start
+CMD /www/tmp/wait-for/wait-for mongo:27017 -- npm run db && npm start
