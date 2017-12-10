@@ -1,34 +1,103 @@
-import { Products } from '../models';
+import {
+  insertModelMiddleware,
+  getByIdMiddleware,
+  checkIdMiddleware,
+  deleteModelMiddleware
+} from '../middlewares/model-middlewares';
 
-const getAllProducts = (req, res) => {
-  Products
-    .find({}, { _id: 0 })
-    .then(products => res.json(products))
-    .catch(err => {
-      console.log(err);
-      res.status(400).end('Failed load products');
-    });
-};
-
-const getProductById = (req, res, next) => {
-  req.model = Products;
-  req.exludingFields = { _id: 0 };
-  next();
-};
-
-const saveNewProduct = (req, res, next) => {
-  req.model = new Products(req.body);
-  next();
-};
-
-const deleteProductById = (req, res, next) => {
-  req.model = Products;
-  next();
-};
-
-export default {
-  getAllProducts,
-  getProductById,
-  saveNewProduct,
-  deleteProductById
-};
+export default [
+  {
+    /**
+     * @swagger
+     * /api/products:
+     *   get:
+     *     tags:
+     *       - Product
+     *     summary: Get all products
+     *     description: Get all products
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Success response
+     *         schema:
+     *           $ref: '#/definitions/ProductsResponse'
+     */
+    method: 'GET',
+    url: '/api/products/',
+    handler: 'getAllProducts'
+  }, {
+    /**
+     * @swagger
+     * /api/products/{id}:
+     *   get:
+     *     tags:
+     *       - Product
+     *     summary: Get product by id
+     *     description: Get product by id
+     *     parameters:
+     *       - $ref: '#/parameters/id'
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Success response
+     *         schema:
+     *           $ref: '#/definitions/ProductResponse'
+     */
+    method: 'GET',
+    url: '/api/products/:id',
+    handler: 'getProductById',
+    beforeRouteMiddleware: [ checkIdMiddleware ],
+    afterRouteMiddleware: [ getByIdMiddleware ]
+  }, {
+    /**
+     * @swagger
+     * /api/products:
+     *   post:
+     *     tags:
+     *       - Product
+     *     summary: Save new produce
+     *     description: Save new produce
+     *     parameters:
+     *       - $ref: '#/parameters/ProductNewRequest'
+     *     consumes:
+     *       - application/json
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Success response
+     *         schema:
+     *           $ref: '#/definitions/SaveResponse'
+     */
+    method: 'POST',
+    url: '/api/products',
+    handler: 'saveNewProduct',
+    afterRouteMiddleware: [ insertModelMiddleware ]
+  }, {
+    /**
+     * @swagger
+     * /api/products/{id}:
+     *   delete:
+     *     tags:
+     *       - Product
+     *     summary: Delete product by id
+     *     description: Delete productby id
+     *     parameters:
+     *       - $ref: '#/parameters/id'
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Success response
+     *         schema:
+     *           $ref: '#/definitions/SuccessResponse'
+     */
+    method: 'DELETE',
+    url: '/api/products/:id',
+    handler: 'deleteProductById',
+    beforeRouteMiddleware: [ checkIdMiddleware ],
+    afterRouteMiddleware: [ deleteModelMiddleware ]
+  }
+];

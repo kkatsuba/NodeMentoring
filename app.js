@@ -1,6 +1,6 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import apiRoute from './routes/init/api';
+import apiRoute from './routes/api';
 import logger from 'morgan';
 
 const app = express();

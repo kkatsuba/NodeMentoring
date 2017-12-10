@@ -1,0 +1,7 @@
+parameters:
+  id:
+    name: id
+    description: Entity id
+    in: path
+    required: true
+    type: integer

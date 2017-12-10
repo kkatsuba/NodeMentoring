@@ -1,54 +1,129 @@
-import { Cities } from '../models';
-import { getRandomCityNative, getRandomCityMongoose } from '../data/mongo-native/cities';
+import {
+  insertModelMiddleware,
+  getByIdMiddleware,
+  checkIdMiddleware,
+  deleteModelMiddleware
+} from '../middlewares/model-middlewares';
 
-const getRandomCity = (req, res) => {
-  const executable = req.query.native ? getRandomCityNative : getRandomCityMongoose;
-  executable().then(cities => {
-    res.json(cities[0]);
-  }).catch(err => {
-    console.log(err);
-    res.status(400).end('Failed load cities');
-  });
-};
-
-const getCityById = (req, res, next) => {
-  req.model = Cities;
-  req.exludingFields = { _id: 0 };
-  next();
-};
-
-const saveNewCity = (req, res, next) => {
-  req.model = new Cities(req.body);
-  next();
-};
-
-const updateCityById = (req, res) => {
-  const id = req.params.id;
-
-  // I will not save new. just because it stupid to save with predefined id.
-  // May be i noob ¯\_(ツ)_/¯.
-  // And what will happened when sequence goes to this id? Save failure.
-  // for enable this used upsert: true
-  Cities
-    .findOneAndUpdate({ id }, req.body, { new: true })
-    .exec()
-    .then(city => res.json(city))
-    .catch(err => {
-      res.status(400).json({
-        message: err.message
-      });
-    });
-};
-
-const deleteCityById = (req, res, next) => {
-  req.model = Cities;
-  next();
-};
-
-export default {
-  getRandomCity,
-  getCityById,
-  saveNewCity,
-  updateCityById,
-  deleteCityById
-};
+export default [
+  {
+    /**
+     * @swagger
+     * /api/city/random:
+     *   get:
+     *     tags:
+     *       - City
+     *     summary: Get random city
+     *     description: Get random city
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Success response
+     *         schema:
+     *           $ref: '#/definitions/CityResponse'
+     */
+    method: 'GET',
+    url: '/api/city/random',
+    handler: 'getRandomCity'
+  }, {
+    /**
+     * @swagger
+     * /api/city/{id}:
+     *   get:
+     *     tags:
+     *       - City
+     *     summary: Get city by id
+     *     description: Get city by id
+     *     parameters:
+     *       - $ref: '#/parameters/id'
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Success response
+     *         schema:
+     *           $ref: '#/definitions/CityResponse'
+     */
+    method: 'GET',
+    url: '/api/city/:id',
+    handler: 'getCityById',
+    beforeRouteMiddleware: [checkIdMiddleware],
+    afterRouteMiddleware: [getByIdMiddleware]
+  }, {
+    /**
+     * @swagger
+     * /api/city:
+     *   post:
+     *     tags:
+     *       - City
+     *     summary: Save new city
+     *     description: Save new city
+     *     parameters:
+     *       - $ref: '#/parameters/CityNewRequest'
+     *     consumes:
+     *       - application/json
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Success response
+     *         schema:
+     *           $ref: '#/definitions/SaveResponse'
+     */
+    method: 'POST',
+    url: '/api/city',
+    handler: 'saveNewCity',
+    afterRouteMiddleware: [insertModelMiddleware]
+  }, {
+    /**
+     * @swagger
+     * /api/city/{id}:
+     *   put:
+     *     tags:
+     *       - City
+     *     summary: Update city by Id
+     *     description: Update city by Id
+     *     parameters:
+     *       - $ref: '#/parameters/id'
+     *       - $ref: '#/parameters/CityNewRequest'
+     *     consumes:
+     *       - application/json
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Success response
+     *         schema:
+     *           $ref: '#/definitions/CityResponse'
+     */
+    method: 'PUT',
+    url: '/api/city/:id',
+    handler: 'updateCityById',
+    beforeRouteMiddleware: [checkIdMiddleware]
+  }, {
+    /**
+     * @swagger
+     * /api/city/{id}:
+     *   delete:
+     *     tags:
+     *       - City
+     *     summary: Delete city by id
+     *     description: Delete city by id
+     *     parameters:
+     *       - $ref: '#/parameters/id'
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Success response
+     *         schema:
+     *           $ref: '#/definitions/SuccessResponse'
+     */
+    method: 'DELETE',
+    url: '/api/city/:id',
+    handler: 'deleteCityById',
+    beforeRouteMiddleware: [checkIdMiddleware],
+    afterRouteMiddleware: [deleteModelMiddleware]
+  }
+];
