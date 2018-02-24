@@ -1,0 +1,6 @@
+definitions:
+  CityResponse:
+    allOf:
+      - $ref: '#/definitions/Id'
+      - $ref: '#/definitions/City'
+
