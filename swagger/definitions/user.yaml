@@ -15,9 +15,33 @@ definitions:
     allOf:
       - $ref: '#/definitions/User'
       - properties:
+          avatar:
+            type: string
+            example: https://some.url/some_img.png
+          link:
+            type: string
+            example: https://social.network/id
           login:
             type: string
             example: Pteradactel_003
           password:
             type: string
             example: vare_sessure
+  Login:
+    type: object
+    properties:
+      email:
+        type: string
+        example: nikita.lensckij@yandex.ru
+      password:
+        type: string
+        example: 1234
+  Comment:
+    type: object
+    properties:
+      user_id:
+        type: integer
+        example: 1
+      text:
+        type: string
+        example: Shit

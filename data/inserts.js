@@ -1,22 +1,13 @@
-const { Products, Users, Cities, Counters } = require('../models');
+const models = require('../models');
 
-const insertManyProductsWithRemove = async (products) => {
-  await Products.collection.remove();
-  return Products.collection.insertMany(products);
-};
+const insertManyWithRemove = async (modelName, data) => {
+  const model = models[modelName];
+  if (!model) return;
 
-const insertManyUsersWithRemove = async (users) => {
-  Users.collection.remove();
-  return Users.collection.insertMany(users);
-};
-
-const insertManyCountersWithRemove = async (counters) => {
-  await Counters.collection.remove();
-  return Counters.collection.insertMany(counters);
+  await model.collection.remove();
+  return model.collection.insertMany(data);
 };
 
 module.exports = {
-  insertManyProductsWithRemove,
-  insertManyUsersWithRemove,
-  insertManyCountersWithRemove
+  insertManyWithRemove
 };

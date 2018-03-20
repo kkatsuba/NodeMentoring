@@ -1,9 +1,0 @@
-definitions:
-  ProductResponse:
-    allOf:
-      - $ref: '#/definitions/Id'
-      - $ref: '#/definitions/Product'
-  ProductsResponse:
-    type: array
-    items:
-      $ref: '#/definitions/ProductResponse'

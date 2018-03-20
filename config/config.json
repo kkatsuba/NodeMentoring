@@ -1,5 +1,5 @@
 {
   "database": {
-    "connection": "mongodb://mongo/mentoring"
+    "connection": "mongodb://mongo/inst"
   }
 }

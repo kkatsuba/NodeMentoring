@@ -1,8 +1,0 @@
-parameters:
-  ProductNewRequest:
-    name: body
-    in: body
-    description: "Product object"
-    required: true
-    schema:
-      $ref: '#/definitions/Product'

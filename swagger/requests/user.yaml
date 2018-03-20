@@ -6,3 +6,17 @@ parameters:
     required: true
     schema:
       $ref: '#/definitions/UserNew'
+  LoginRequest:
+    name: body
+    in: body
+    description: "Login payload"
+    required: true
+    schema:
+      $ref: '#/definitions/Login'
+  CommentRequest:
+    name: body
+    in: body
+    description: "Comment payload"
+    required: true
+    schema:
+      $ref: '#/definitions/Comment'

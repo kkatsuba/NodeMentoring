@@ -1,8 +1,0 @@
-parameters:
-  CityNewRequest:
-    name: body
-    in: body
-    description: "City object"
-    required: true
-    schema:
-      $ref: '#/definitions/City'

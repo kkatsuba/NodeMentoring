@@ -1,6 +1,6 @@
 module.exports = {
-  Cities: require('./cities'),
   Users: require('./users'),
-  Products: require('./products'),
-  Counters: require('./counters').Counters
+  Counters: require('./counters').Counters,
+  Comments: require('./comments'),
+  Photos: require('./photos')
 };

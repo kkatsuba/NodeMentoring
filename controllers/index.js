@@ -1,11 +1,11 @@
-import citiesRoutes from './cities';
 import usersRoutes from './users';
-import productsRoutes from './products';
 import helpRoutes from './help';
+import photosRoutes from './photos';
+import comments from './comments';
 
-export default {
-  ...citiesRoutes,
+module.exports = {
   ...usersRoutes,
-  ...productsRoutes,
-  ...helpRoutes
+  ...helpRoutes,
+  ...photosRoutes,
+  ...comments
 };

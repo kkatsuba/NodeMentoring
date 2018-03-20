@@ -11,8 +11,11 @@ services:
     depends_on:
       - "mongo"
   mongo:
-    build:
-      context: .
-      dockerfile: Dockerfile-mongo
+    image: mongo:latest
     ports:
       - "26017:27017"
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-mongo
+#    ports:
+#      - "26017:27017"

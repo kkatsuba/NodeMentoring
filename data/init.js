@@ -1,17 +1,12 @@
 const mongoose = require('mongoose');
 const connect = require('./connection');
-const { insertManyCitiesWithRemove } = require('./mongo-native/cities');
-const {
-  insertManyCountersWithRemove,
-  insertManyProductsWithRemove,
-  insertManyUsersWithRemove
-} = require('./inserts');
+const { insertManyWithRemove } = require('./inserts');
 
 const performMockInsert = () => Promise.all([
-  insertManyCitiesWithRemove(require('./mocks/cities.json')),
-  insertManyUsersWithRemove(require('./mocks/users.json')),
-  insertManyProductsWithRemove(require('./mocks/products.json')),
-  insertManyCountersWithRemove(require('./mocks/counters'))
+  insertManyWithRemove('Users', require('./mocks/users')),
+  insertManyWithRemove('Counters', require('./mocks/counters')),
+  insertManyWithRemove('Comments', require('./mocks/comments')),
+  insertManyWithRemove('Photos', require('./mocks/photos'))
 ]);
 
 connect()

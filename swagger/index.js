@@ -2,10 +2,10 @@ const swaggerJSDoc = require('swagger-jsdoc');
 
 const swaggerDefinition = {
   info: {
-    title: 'Node Mentoring API',
+    title: 'Copygram',
     version: '1.0.0'
   },
-  host: 'localhost:8081',
+  host: 'epbygomw0290.gomel.epam.com:8081',
   basePath: '/'
 };
 

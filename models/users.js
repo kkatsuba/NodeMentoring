@@ -30,9 +30,27 @@ const usersSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  avatar: {
+    type: String
+  },
+  link: {
+    type: String
+  },
+  followers: {
+    type: Array
+  },
+  following: {
+    type: Array
   }
 }, {
-  versionKey: false
+  versionKey: false,
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
 });
 
 usersSchema.methods.getIndex = getIndex('users_id');
@@ -41,7 +59,11 @@ usersSchema.pre('save', function (next) {
   const user = this;
 
   user.password = sha256(`urGenT!!${user.pawword}SesuriTYYY!wArNiNG`).toString();
-  next()
+  next();
+});
+
+usersSchema.virtual('nick').get(function() {
+  return this.get('login');
 });
 
 module.exports = mongoose.model('Users', usersSchema);
